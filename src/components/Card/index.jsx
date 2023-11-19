@@ -1,6 +1,9 @@
+import { useShoppingCartProvider } from "../../Context";
 import { reduceProductName } from "../../utils";
 
 const Card = ({ title, price, image, category }) => {
+  const { addToCart } = useShoppingCartProvider();
+
   return (
     <div className="bg-white cursor-pointer w-56 h-60 rounded-lg drop-shadow-md">
       <figure className="relative mb-2 w-full h-4/5">
@@ -12,7 +15,10 @@ const Card = ({ title, price, image, category }) => {
           src={image}
           alt="headphones"
         />
-        <div className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p">
+        <div
+          onClick={addToCart}
+          className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p"
+        >
           +
         </div>
       </figure>
