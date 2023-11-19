@@ -4,13 +4,24 @@ const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
   const [count, setCount] = useState(0);
+  const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 
-  function addToCart() {
-    setCount(count + 1);
-  }
+  const addToCart = () => setCount((prevCount) => prevCount + 1);
+
+  const openProductDetail = () => setIsProductDetailOpen(true);
+
+  const closeProductDetail = () => setIsProductDetailOpen(false);
 
   return (
-    <ShoppingCartContext.Provider value={{ addToCart, count }}>
+    <ShoppingCartContext.Provider
+      value={{
+        addToCart,
+        count,
+        openProductDetail,
+        closeProductDetail,
+        isProductDetailOpen,
+      }}
+    >
       {children}
     </ShoppingCartContext.Provider>
   );
