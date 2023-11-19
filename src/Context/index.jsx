@@ -5,6 +5,7 @@ const ShoppingCartContext = createContext();
 const ShoppingCartProvider = ({ children }) => {
   const [count, setCount] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
+  const [productToShow, setProductToShow] = useState({});
 
   const addToCart = () => setCount((prevCount) => prevCount + 1);
 
@@ -12,14 +13,21 @@ const ShoppingCartProvider = ({ children }) => {
 
   const closeProductDetail = () => setIsProductDetailOpen(false);
 
+  const showProductDetail = (product) => {
+    openProductDetail();
+    setProductToShow(product);
+    // console.log(product);
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
         addToCart,
         count,
-        openProductDetail,
         closeProductDetail,
         isProductDetailOpen,
+        productToShow,
+        showProductDetail,
       }}
     >
       {children}
