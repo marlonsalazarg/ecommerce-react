@@ -18,7 +18,7 @@ function Home() {
       Home
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
         {items.map((item) => {
-          return <Card key={item.id} {...item} />;
+          return <Card key={item.id} productData={item} />;
         })}
       </div>
       <ProductDetail />
