@@ -8,6 +8,7 @@ const ShoppingCartProvider = ({ children }) => {
   const [productToShow, setProductToShow] = useState({});
   const [cartProducts, setCartProducts] = useState([]);
   const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false);
+  const [order, setOrder] = useState([]);
 
   const addToCart = () => setCount((prevCount) => prevCount + 1);
 
@@ -46,6 +47,8 @@ const ShoppingCartProvider = ({ children }) => {
         isCheckoutMenuOpen,
         closeCheckoutMenu,
         setCartProducts,
+        setOrder,
+        order,
       }}
     >
       {children}
