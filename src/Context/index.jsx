@@ -6,7 +6,7 @@ const ShoppingCartProvider = ({ children }) => {
   const [count, setCount] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const [productToShow, setProductToShow] = useState({});
-  const [cartProducts, setCartProducts] = useState([{}]);
+  const [cartProducts, setCartProducts] = useState([]);
   const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false);
 
   const addToCart = () => setCount((prevCount) => prevCount + 1);
@@ -31,7 +31,6 @@ const ShoppingCartProvider = ({ children }) => {
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
     openCheckoutMenu();
     closeProductDetail();
-    // console.log(cartProducts);
   };
 
   return (
@@ -46,6 +45,7 @@ const ShoppingCartProvider = ({ children }) => {
         cartProducts,
         isCheckoutMenuOpen,
         closeCheckoutMenu,
+        setCartProducts,
       }}
     >
       {children}
