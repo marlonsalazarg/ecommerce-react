@@ -17,7 +17,9 @@ const OrderCard = ({ id, title, imageUrl, price, handleDelete }) => {
       <div className="flex items-center gap-2">
         <p className="text-lg font-medium">${price}</p>
         <button>
-          <IoClose onClick={() => handleDelete(id)} className="w-6 h-6" />
+          {handleDelete && (
+            <IoClose onClick={() => handleDelete(id)} className="w-6 h-6" />
+          )}
         </button>
       </div>
     </div>
