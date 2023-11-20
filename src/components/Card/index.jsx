@@ -3,7 +3,7 @@ import { reduceProductName } from "../../utils";
 import { IoMdAdd } from "react-icons/io";
 
 const Card = ({ productData }) => {
-  const { addToCart, showProductDetail } = useShoppingCartProvider();
+  const { addProductToCart, showProductDetail } = useShoppingCartProvider();
   return (
     <div
       className="bg-white cursor-pointer w-56 h-60 rounded-lg drop-shadow-md"
@@ -22,7 +22,7 @@ const Card = ({ productData }) => {
           <IoMdAdd
             onClick={(e) => {
               e.stopPropagation();
-              addToCart();
+              addProductToCart(productData);
             }}
             className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
           />
