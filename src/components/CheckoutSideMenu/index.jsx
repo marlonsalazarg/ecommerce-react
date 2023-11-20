@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { IoCloseCircle } from "react-icons/io5";
 import { useShoppingCartProvider } from "../../Context";
 import OrderCard from "../OrderCard";
+import { totalPrice } from "../../utils";
 import "./styles.css";
 
 const CheckoutSideMenu = () => {
@@ -9,11 +11,25 @@ const CheckoutSideMenu = () => {
     closeCheckoutMenu,
     cartProducts,
     setCartProducts,
+    setOrder,
   } = useShoppingCartProvider();
 
   const handleDelete = (id) => {
     const newCartProducts = cartProducts.filter((product) => product.id !== id);
     setCartProducts(newCartProducts);
+  };
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: "2021-10-10",
+      products: cartProducts,
+      totalItems: cartProducts.length,
+      totalPrice: totalPrice(cartProducts),
+    };
+
+    setOrder((prevOrder) => [...prevOrder, orderToAdd]);
+    setCartProducts([]);
+    closeCheckoutMenu();
   };
 
   return (
@@ -28,7 +44,7 @@ const CheckoutSideMenu = () => {
           <IoCloseCircle className="w-6 h-6" onClick={closeCheckoutMenu} />
         </button>
       </div>
-      <div className="px-3">
+      <div className="px-3 flex-1">
         {cartProducts.map((product) => (
           <OrderCard
             key={product.id}
@@ -39,6 +55,23 @@ const CheckoutSideMenu = () => {
             handleDelete={handleDelete}
           />
         ))}
+      </div>
+
+      <div className="px-6 mb-2">
+        <p className="flex justify-between items-center mb-2">
+          <span className="font-light">Total:</span>
+          <span className="font-medium text-xl">
+            ${totalPrice(cartProducts)}
+          </span>
+        </p>
+        <Link to="/my-orders/last">
+          <button
+            className="bg-black py-3 text-white w-full rounded-lg"
+            onClick={handleCheckout}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </aside>
   );
