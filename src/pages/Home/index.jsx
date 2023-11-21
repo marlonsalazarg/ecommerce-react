@@ -4,7 +4,19 @@ import Layout from "../../components/Layout";
 import ProductDetail from "../../components/ProductDetail";
 
 function Home() {
-  const { items, setSearchByTitle } = useShoppingCartProvider();
+  const { items, setSearchByTitle, searchByTitle, filteredItems } =
+    useShoppingCartProvider();
+
+  const renderView = () => {
+    const itemsToRender = searchByTitle ? filteredItems : items;
+    if (itemsToRender.length === 0) {
+      return <p className="text-center">No product found...</p>;
+    } else {
+      return itemsToRender.map((item) => {
+        return <Card key={item.id} productData={item} />;
+      });
+    }
+  };
 
   return (
     <Layout>
@@ -20,9 +32,7 @@ function Home() {
         }}
       />
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
-        {items.map((item) => {
-          return <Card key={item.id} productData={item} />;
-        })}
+        {renderView()}
       </div>
       <ProductDetail />
     </Layout>
