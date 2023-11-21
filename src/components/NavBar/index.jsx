@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useShoppingCartProvider } from "../../Context";
+import { BsCart4 } from "react-icons/bs";
 
 const NavBar = () => {
-  const { count } = useShoppingCartProvider();
+  const { openCheckoutMenu, cartProducts } = useShoppingCartProvider();
   const activeStyle = "underline underline-offset-4";
 
   return (
@@ -21,10 +22,10 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink
-            to="/clothes"
+            to="/mens-clothing"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            Clothes
+            Men's clothing
           </NavLink>
         </li>
         <li>
@@ -37,18 +38,18 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink
-            to="/furnitures"
+            to="/womens-clothing"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            Furnitures
+            Women's clothing
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/toys"
+            to="/jewelery"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            Toys
+            Jewelery
           </NavLink>
         </li>
         <li>
@@ -81,13 +82,15 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink
-            to="/electronic"
+            to="/sign-in"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Sign In
           </NavLink>
         </li>
-        <li>🛒 {count}</li>
+        <li className="flex items-center justify-center gap-2 cursor-pointer">
+          <BsCart4 onClick={openCheckoutMenu} /> {cartProducts.length}
+        </li>
       </ul>
     </nav>
   );
