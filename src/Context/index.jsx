@@ -1,8 +1,18 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getProducts } from "../services/product-service";
 
 const ShoppingCartContext = createContext();
 
 const ShoppingCartProvider = ({ children }) => {
+  // get products
+  const [items, setItems] = useState([]);
+  const [searchByTitle, setSearchByTitle] = useState(""); // search by title
+  useEffect(() => {
+    getProducts().then((data) => {
+      setItems(data);
+    });
+  }, []);
+  // ...
   const [count, setCount] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const [productToShow, setProductToShow] = useState({});
@@ -37,6 +47,8 @@ const ShoppingCartProvider = ({ children }) => {
   return (
     <ShoppingCartContext.Provider
       value={{
+        items,
+        setItems,
         count,
         closeProductDetail,
         isProductDetailOpen,
@@ -49,6 +61,8 @@ const ShoppingCartProvider = ({ children }) => {
         setCartProducts,
         setOrder,
         order,
+        searchByTitle,
+        setSearchByTitle,
       }}
     >
       {children}
