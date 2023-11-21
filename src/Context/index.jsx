@@ -19,8 +19,10 @@ const ShoppingCartProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    if (!searchByTitle) setFilteredItems(items);
+
     if (searchByTitle) setFilteredItems(filteredItemsByTitle);
-  }, [searchByTitle]);
+  }, [searchByTitle, items]);
 
   // ...
   const [count, setCount] = useState(0);
@@ -74,6 +76,7 @@ const ShoppingCartProvider = ({ children }) => {
         searchByTitle,
         setSearchByTitle,
         filteredItems,
+        openCheckoutMenu,
       }}
     >
       {children}
