@@ -12,6 +12,7 @@ const CheckoutSideMenu = () => {
     cartProducts,
     setCartProducts,
     setOrder,
+    setSearchByTitle,
   } = useShoppingCartProvider();
 
   const handleDelete = (id) => {
@@ -20,6 +21,7 @@ const CheckoutSideMenu = () => {
   };
 
   const handleCheckout = () => {
+    if (cartProducts.length === 0) return;
     const orderToAdd = {
       date: "2021-10-10",
       products: cartProducts,
@@ -30,6 +32,7 @@ const CheckoutSideMenu = () => {
     setOrder((prevOrder) => [...prevOrder, orderToAdd]);
     setCartProducts([]);
     closeCheckoutMenu();
+    setSearchByTitle("");
   };
 
   return (
