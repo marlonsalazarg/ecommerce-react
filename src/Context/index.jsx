@@ -7,11 +7,21 @@ const ShoppingCartProvider = ({ children }) => {
   // get products
   const [items, setItems] = useState([]);
   const [searchByTitle, setSearchByTitle] = useState(""); // search by title
+  const [filteredItems, setFilteredItems] = useState([]); // filtered items
   useEffect(() => {
     getProducts().then((data) => {
       setItems(data);
     });
   }, []);
+
+  const filteredItemsByTitle = items.filter((item) => {
+    return item.title.toLowerCase().includes(searchByTitle.toLowerCase());
+  });
+
+  useEffect(() => {
+    if (searchByTitle) setFilteredItems(filteredItemsByTitle);
+  }, [searchByTitle]);
+
   // ...
   const [count, setCount] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -63,6 +73,7 @@ const ShoppingCartProvider = ({ children }) => {
         order,
         searchByTitle,
         setSearchByTitle,
+        filteredItems,
       }}
     >
       {children}
