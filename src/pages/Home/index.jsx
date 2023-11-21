@@ -4,17 +4,30 @@ import Layout from "../../components/Layout";
 import ProductDetail from "../../components/ProductDetail";
 
 function Home() {
-  const { items, setSearchByTitle, searchByTitle, filteredItems } =
-    useShoppingCartProvider();
+  const { setSearchByTitle, filteredItems } = useShoppingCartProvider();
 
+  const currentPath = window.location.pathname;
+  let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+
+  const filteredItemsByCategory = filteredItems?.filter((item) => {
+    let category = item.category;
+    category = category.replace(/'/g, "");
+    category = category.replace(/ /g, "-");
+    return category === index;
+  });
+
+  console.log(filteredItemsByCategory);
   const renderView = () => {
-    const itemsToRender = searchByTitle ? filteredItems : items;
-    if (itemsToRender.length === 0) {
-      return <p className="text-center">No product found...</p>;
-    } else {
-      return itemsToRender.map((item) => {
+    if (filteredItemsByCategory.length > 0) {
+      return filteredItemsByCategory.map((item) => {
         return <Card key={item.id} productData={item} />;
       });
+    } else if (filteredItems.length > 0) {
+      return filteredItems.map((item) => {
+        return <Card key={item.id} productData={item} />;
+      });
+    } else {
+      return <p>Product not found</p>;
     }
   };
 
