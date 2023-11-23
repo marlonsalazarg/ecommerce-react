@@ -48,7 +48,7 @@ const Card = ({ productData }) => {
         />
         {renderAddButton()}
       </figure>
-      <p className="flex justify-between">
+      <p className="flex justify-between px-2">
         <span className="text-sm font-light">
           {reduceProductName(productData.title)}
         </span>
