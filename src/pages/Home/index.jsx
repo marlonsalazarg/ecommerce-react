@@ -1,33 +1,30 @@
+import { useEffect } from "react";
 import { useShoppingCartProvider } from "../../Context";
 import Card from "../../components/Card";
 import Layout from "../../components/Layout";
 import ProductDetail from "../../components/ProductDetail";
 
 function Home() {
-  const { setSearchByTitle, filteredItems } = useShoppingCartProvider();
+  const { setSearchByTitle, searchByTitle, filteredItems } =
+    useShoppingCartProvider();
 
   const currentPath = window.location.pathname;
   let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
 
-  const filteredItemsByCategory = filteredItems?.filter((item) => {
-    let category = item.category;
-    category = category.replace(/'/g, "");
-    category = category.replace(/ /g, "-");
-    return category === index;
-  });
-
-  console.log(filteredItemsByCategory);
   const renderView = () => {
-    if (filteredItemsByCategory.length > 0) {
-      return filteredItemsByCategory.map((item) => {
-        return <Card key={item.id} productData={item} />;
-      });
-    } else if (filteredItems.length > 0) {
-      return filteredItems.map((item) => {
-        return <Card key={item.id} productData={item} />;
-      });
+    const itemsToRender = index
+      ? filteredItems
+          ?.filter((item) => item.category === index)
+          .map((item) => <Card key={item.id} productData={item} />)
+      : filteredItems?.map((item) => <Card key={item.id} productData={item} />);
+
+    if (
+      searchByTitle?.length > 0 &&
+      (!itemsToRender || itemsToRender.length === 0)
+    ) {
+      return <div>Product not found {":("}</div>;
     } else {
-      return <p>Product not found</p>;
+      return itemsToRender;
     }
   };
 
