@@ -34,7 +34,7 @@ const Card = ({ productData }) => {
 
   return (
     <div
-      className="bg-white cursor-pointer w-56 h-60 rounded-lg drop-shadow-md"
+      className="bg-white cursor-pointer w-56 h-60 rounded-lg drop-shadow-md hover:drop-shadow-xl transition duration-300 ease-in-out"
       onClick={() => showProductDetail(productData)}
     >
       <figure className="relative mb-2 w-full h-4/5">
