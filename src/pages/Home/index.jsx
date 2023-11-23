@@ -41,7 +41,7 @@ function Home() {
           setSearchByTitle(e.target.value);
         }}
       />
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+      <div className="grid gap-4 justify-items-center grid-cols-4 w-full max-w-screen-lg">
         {renderView()}
       </div>
       <ProductDetail />
