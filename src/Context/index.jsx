@@ -22,17 +22,14 @@ const ShoppingCartProvider = ({ children }) => {
     if (!searchByTitle) setFilteredItems(items);
 
     if (searchByTitle) setFilteredItems(filteredItemsByTitle);
-  }, [searchByTitle, items]);
+  }, [items, searchByTitle]);
 
   // ...
-  const [count, setCount] = useState(0);
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const [productToShow, setProductToShow] = useState({});
   const [cartProducts, setCartProducts] = useState([]);
   const [isCheckoutMenuOpen, setIsCheckoutMenuOpen] = useState(false);
   const [order, setOrder] = useState([]);
-
-  const addToCart = () => setCount((prevCount) => prevCount + 1);
 
   const openProductDetail = () => setIsProductDetailOpen(true);
 
@@ -50,7 +47,6 @@ const ShoppingCartProvider = ({ children }) => {
   const closeCheckoutMenu = () => setIsCheckoutMenuOpen(false);
 
   const addProductToCart = (product) => {
-    addToCart();
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
     openCheckoutMenu();
     closeProductDetail();
@@ -61,7 +57,6 @@ const ShoppingCartProvider = ({ children }) => {
       value={{
         items,
         setItems,
-        count,
         closeProductDetail,
         isProductDetailOpen,
         productToShow,
