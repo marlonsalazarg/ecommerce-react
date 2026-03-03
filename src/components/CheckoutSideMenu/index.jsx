@@ -36,47 +36,70 @@ const CheckoutSideMenu = () => {
   };
 
   return (
-    <aside
-      className={`${
-        isCheckoutMenuOpen ? "flex" : "hidden"
-      } scrollable-cards flex flex-col fixed right-0 border bg-white border-black rounded-lg w-[360px] h-[calc(100vh-80px)] z-10`}
-    >
-      <div className="flex justify-between items-center p-4">
-        <h2 className="font-medium text-xl">My order</h2>
-        <button>
-          <IoCloseCircle className="w-6 h-6" onClick={closeCheckoutMenu} />
-        </button>
-      </div>
-      <div className="px-3 flex-1">
-        {cartProducts.map((product) => (
-          <OrderCard
-            key={product.id}
-            id={product.id}
-            title={product.title}
-            imageUrl={product.image}
-            price={product.price}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </div>
+    <>
+      {/* Backdrop overlay */}
+      {isCheckoutMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/30 z-[29] backdrop-blur-[2px]"
+          onClick={closeCheckoutMenu}
+        />
+      )}
 
-      <div className="px-6 mb-2">
-        <p className="flex justify-between items-center mb-2">
-          <span className="font-light">Total:</span>
-          <span className="font-medium text-xl">
-            ${totalPrice(cartProducts)}
-          </span>
-        </p>
-        <Link to="/my-orders/last">
+      <aside
+        className={`${
+          isCheckoutMenuOpen ? "flex" : "hidden"
+        } flex-col fixed right-0 top-0 bg-white border-l border-apple-border w-full sm:w-[380px] h-screen z-30 shadow-panel`}
+      >
+        <div className="flex justify-between items-center px-6 py-5 border-b border-apple-border-light">
+          <h2 className="text-base font-semibold text-apple-text">My Cart</h2>
           <button
-            className="bg-black py-3 text-white w-full rounded-lg"
-            onClick={handleCheckout}
+            onClick={closeCheckoutMenu}
+            className="text-apple-secondary hover:text-apple-text transition-colors"
           >
-            Checkout
+            <IoCloseCircle className="w-5 h-5" />
           </button>
-        </Link>
-      </div>
-    </aside>
+        </div>
+
+        <div className="px-6 flex-1 overflow-y-auto py-2 scrollable-cards">
+          {cartProducts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full gap-3 text-apple-secondary">
+              <span className="text-5xl">🛒</span>
+              <p className="font-medium text-apple-text">Your cart is empty</p>
+              <p className="text-sm text-center">Add products to start your order</p>
+            </div>
+          ) : (
+            cartProducts.map((product) => (
+              <OrderCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                imageUrl={product.image}
+                price={product.price}
+                handleDelete={handleDelete}
+              />
+            ))
+          )}
+        </div>
+
+        <div className="px-6 py-5 border-t border-apple-border-light">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm text-apple-secondary">Total</span>
+            <span className="text-2xl font-bold text-apple-text">
+              ${totalPrice(cartProducts)}
+            </span>
+          </div>
+          <Link to="/my-orders/last">
+            <button
+              className="w-full bg-apple-blue hover:bg-apple-blue-hover disabled:bg-apple-border text-white text-sm font-medium py-3.5 rounded-xl transition-colors disabled:cursor-not-allowed"
+              onClick={handleCheckout}
+              disabled={cartProducts.length === 0}
+            >
+              Checkout · ${totalPrice(cartProducts)}
+            </button>
+          </Link>
+        </div>
+      </aside>
+    </>
   );
 };
 

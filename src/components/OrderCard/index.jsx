@@ -3,24 +3,29 @@ import { reduceProductName } from "../../utils";
 
 const OrderCard = ({ id, title, imageUrl, price, handleDelete }) => {
   return (
-    <div className="flex justify-between items-center mb-4">
-      <div className="flex items-center gap-4">
-        <figure className="w-20 h-20">
+    <div className="flex justify-between items-center py-3.5 border-b border-apple-border-light last:border-0">
+      <div className="flex items-center gap-3">
+        <figure className="w-14 h-14 bg-apple-bg rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
           <img
-            className="w-full h-full rounded-lg object-cover"
+            className="w-full h-full object-contain p-2"
             src={imageUrl}
             alt="product"
           />
         </figure>
-        <p className="text-sm font-light">{reduceProductName(title)}</p>
+        <p className="text-xs text-apple-text leading-snug max-w-[140px]">
+          {reduceProductName(title)}
+        </p>
       </div>
-      <div className="flex items-center gap-2">
-        <p className="text-lg font-medium">${price}</p>
-        <button>
-          {handleDelete && (
-            <IoClose onClick={() => handleDelete(id)} className="w-6 h-6" />
-          )}
-        </button>
+      <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+        <span className="text-sm font-semibold text-apple-text">${price}</span>
+        {handleDelete && (
+          <button
+            onClick={() => handleDelete(id)}
+            className="text-apple-secondary hover:text-apple-red transition-colors"
+          >
+            <IoClose className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </div>
   );
